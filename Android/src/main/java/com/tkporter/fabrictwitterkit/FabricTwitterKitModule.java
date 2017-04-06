@@ -130,7 +130,7 @@ public class FabricTwitterKitModule extends ReactContextBaseJavaModule implement
 
         try {
             ReactNativeFabricApiClient client = new ReactNativeFabricApiClient(TwitterCore.getInstance().getSessionManager().getActiveSession());
-            Call<User> showUser = client.getCustomService().show(TwitterCore.getInstance().getSessionManager().getActiveSession().getUserId());
+            Call<User> showUser = client.getCustomService().show(true);
             showUser.enqueue(new com.twitter.sdk.android.core.Callback<User>() {
                 @Override
                 public void success(Result<User> result) {
@@ -216,8 +216,8 @@ public class FabricTwitterKitModule extends ReactContextBaseJavaModule implement
 
     // example users/show service endpoint
     interface CustomService {
-        @GET("/1.1/users/show.json")
-        Call<User> show(@Query("user_id") Long id);
+        @GET("/1.1/account/verify_credentials.json")
+        Call<User> show(@Query("include_email") Boolean includeEmail);
     }
 
 }
